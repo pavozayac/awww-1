@@ -3,8 +3,11 @@ import requests
 from urllib.parse import urljoin
 from functools import reduce
 from duckduckgo_search import DDGS
+import os
 
 BASE_URL = 'https://eldenring.wiki.fextralife.com'
+TALISMAN_BASE_PATH = './elden_talismans/_talismans/'
+SEARCH_BASE_PATH = './elden_talismans/_searches/'
 
 
 class Talisman:
@@ -14,19 +17,53 @@ class Talisman:
         self.img = img
         self.desc = desc
         self.lore = lore
-            
-    def write_list_to_file(self, file):
-        file.write(f'# {self.name}\n')
-        # file.write('---\n')
-        file.write(f'[Link to a detailed website]({self.site})\n')
-        file.write(f'![Icon of {self.name}]({self.img})\n\n')
-        file.write(f'{self.desc}\n\n')
-        file.write(reduce(lambda a, b: a + b, map(lambda line: '>*'+line+'*\n', self.lore.split('\n')))+'\n')
-        file.write('\n')
 
     def get_ddgs(self):
-        with DDGS() as ddgs:
-            return ddgs.answers(self.name)
+        pass
+
+    def write_list_to_file(self):
+        if not os.path.exists(TALISMAN_BASE_PATH):
+            os.makedirs(TALISMAN_BASE_PATH)
+
+        with open(f'{TALISMAN_BASE_PATH}{self.name.replace(" ", "")}.md', 'w') as file:
+
+            file.write('---\n')
+            file.write('layout: post\n')
+            file.write(f'title: {self.name}\n')
+            file.write(f'name: {self.name}\n')
+            file.write(f'desc: {self.desc}\n\n')
+
+            # file.write('categories: talisman\n')
+            # file.write('permalink: /' + self.name.replace(' ', '') + '\n')
+            file.write('---\n')
+        
+            file.write(f'# {self.name}\n')
+            file.write(f'[Link to a detailed website]({self.site})' + '{:target="_blank"}' + '\n\n')
+            file.write(f'![Icon of {self.name}]({self.img})\n\n')
+            file.write(f'{self.desc}\n\n')
+            file.write('>*' + self.lore.replace('\n', '').strip() + '*')
+            file.write('\n')
+            file.write('\n')
+            file.write(f'[DuckDuckGo searches related to this talisman](/searches/' + self.name.replace(' ', '') + ')\n\n')
+            file.write('\n')
+
+        if not os.path.exists(SEARCH_BASE_PATH):
+            os.makedirs(SEARCH_BASE_PATH)
+
+        with open(f'{SEARCH_BASE_PATH}{self.name.replace(" ", "")}.md', 'w') as file:
+            file.write('---\n')
+            file.write('layout: post\n')
+            file.write(f'title: {self.name} DuckDuckGo search results\n')
+            # file.write(f'name: {self.name}\n')
+            # file.write(f'desc: {self.desc}\n\n')
+            file.write('---\n')
+
+            for result in DDGS().text(self.name, max_results=5):
+                file.write('* #### [' + result['title'] + '](' + result['href'] + '){:target="blank"}\n')
+                file.write(result['body'] + '\n')
+
+            
+            
 
 
 def get_page(url):
@@ -59,12 +96,14 @@ def scrape() -> list[Talisman]:
                 lore=lore_div.text,
             ))
 
+            if len(results) > 1:
+                break
+
     return results
 
 
 if __name__ == '__main__':
     scrape()
 
-    with open('./talisman.md', 'w') as file:
-        for talisman in scrape():
-            talisman.write_list_to_file(file)
+    for talisman in scrape():
+        talisman.write_list_to_file()
