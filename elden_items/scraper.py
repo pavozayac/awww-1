@@ -41,7 +41,7 @@ class Talisman:
             file.write(f'[Link to a detailed website]({self.site})' + '{:target="_blank"}' + '\n\n')
             file.write(f'![Icon of {self.name}]({self.img})\n\n')
             file.write(f'{self.desc}\n\n')
-            file.write('>*' + self.lore.replace('\n', '').strip() + '*')
+            file.write('>*' + self.lore.replace('\n', ' ').strip() + '*')
             file.write('\n')
             file.write('\n')
             file.write('[DuckDuckGo searches related to this talisman]({{site.baseurl}}/searches/' + self.name.replace(' ', '') + ')\n\n')
