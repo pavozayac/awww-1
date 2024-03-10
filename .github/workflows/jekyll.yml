@@ -43,9 +43,8 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
-      - name: Change directories
-        run: cd elden_talismans
       - name: Build with Jekyll
+        working-directory: ./elden_talismans
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl ${{ steps.pages.outputs.base_path }}"
         env:
