@@ -44,7 +44,7 @@ class Talisman:
             file.write('>*' + self.lore.replace('\n', '').strip() + '*')
             file.write('\n')
             file.write('\n')
-            file.write(f'[DuckDuckGo searches related to this talisman](/searches/' + self.name.replace(' ', '') + ')\n\n')
+            file.write('[DuckDuckGo searches related to this talisman]({{site.baseurl}}/searches/' + self.name.replace(' ', '') + ')\n\n')
             file.write('\n')
 
         if not os.path.exists(SEARCH_BASE_PATH):

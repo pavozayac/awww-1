@@ -9,7 +9,7 @@ layout: home
 
 {% for talisman in site.talismans %}
 
-* ### [{{talisman.name}}]({{site.baseurl}}/{{talisman.url}})
+* ### [{{talisman.name}}]({{site.baseurl}}{{talisman.url}})
 {{talisman.desc}}
 
 
