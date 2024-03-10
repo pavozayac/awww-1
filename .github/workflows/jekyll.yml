@@ -30,6 +30,9 @@ concurrency:
 jobs:
   # Build job
   build:
+    defaults:
+      run:
+        working-directory: ./elden_talismans/
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -44,7 +47,7 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
       - name: Build with Jekyll
-        working-directory: ./elden_talismans/
+        # working-directory: ./elden_talismans/
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
