@@ -2,7 +2,7 @@ name: Run scraper
 on: [push, pull_request]
 
 jobs:
-  ci:
+  scrape:
     strategy:
       fail-fast: false
     runs-on: ubuntu-22.04
