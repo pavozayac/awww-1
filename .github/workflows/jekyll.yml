@@ -45,7 +45,7 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl ./elden_talismans"
+        run: bundle exec jekyll build --baseurl /elden_talismans"
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
