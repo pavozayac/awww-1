@@ -62,9 +62,6 @@ class Talisman:
                 file.write('* #### [' + result['title'] + '](' + result['href'] + '){:target="blank"}\n')
                 file.write(result['body'] + '\n')
 
-            
-            
-
 
 def get_page(url):
     response = requests.get(url)
@@ -95,9 +92,6 @@ def scrape() -> list[Talisman]:
                 desc=talisman.parent.parent.parent.find('p').text,
                 lore=lore_div.text,
             ))
-
-            if len(results) > 1:
-                break
 
     return results
 
