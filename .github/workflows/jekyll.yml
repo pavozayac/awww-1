@@ -28,7 +28,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
- build:
+  build:
     defaults:
       run:
         working-directory: ./elden_talismans/
