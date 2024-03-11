@@ -10,7 +10,7 @@ name: Deploy Jekyll site to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    # branches: ["main"]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -33,7 +33,6 @@ jobs:
       run:
         working-directory: ./elden_talismans/
     runs-on: ubuntu-latest
-    needs: scrape
     steps:
       - name: Download markdown artifacts
         uses: actions/download-artifact@v4
