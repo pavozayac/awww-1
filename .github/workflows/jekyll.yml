@@ -34,13 +34,6 @@ jobs:
         working-directory: ./elden_talismans/
     runs-on: ubuntu-latest
     steps:
-      - name: Download markdown artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: generated
-          path: elden_talismans/
-      - name: Show folder structure
-        run: tree .
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Ruby
