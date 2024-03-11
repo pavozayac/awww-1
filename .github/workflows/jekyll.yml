@@ -64,6 +64,8 @@ jobs:
         with:
           name: generated
           path: elden_talismans/
+      - name: Show folder structure
+        run: tree .
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Ruby
